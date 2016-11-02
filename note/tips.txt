@@ -1,100 +1,105 @@
-Git�û�/����:
+Git用户/口令:
 fanyuandong/fanyuandong123 
 
-Զ�˵�ַ(Git)�ļ�λ��
+远端地址(Git)文件位置
 C:\Windows\System32\drivers\etc\hosts
 
 http://127.0.0.1:8080/mini-portal/account/account.html#
 
-���Ի��� : http://172.21.1.203:9080/mini-portal/login/login.html
+测试环境 : http://172.21.1.203:9080/mini-portal/login/login.html
 
-�ֳ���http://sc.h2finance.com/console/frameset/frameset.html
+现场：http://sc.h2finance.com/console/frameset/frameset.html
 
-����: http://172.21.1.32:8080/mini-portal/
+本机: http://172.21.1.32:8080/mini-portal/
 
-���Ի�������http://172.21.1.203:8989/
+测试环境部署：http://172.21.1.203:8989/
 
 OA : http://172.30.3.80/jsoa/CheckUser.jspx;jsessionid=F87C2734CBC50D081D1C3F83C1239F43
 
-��á�����12��8�յ�12��ǰ�ύ������Ƭ���Ա��������ա���ƬҪ�󣺴�С��300KB���ϡ���δ��ʱ�ύ�����Զ�������һ��������лл���ύ�����ַ��qiaohui@iboxpay.com
+你好。请在12月8日的12点前提交电子照片，以便做工牌照。照片要求：大小在300KB以上。如未按时提交，将自动延期下一批制作。谢谢！提交邮箱地址：qiaohui@iboxpay.com
 
-ע���ʽ����
+注意格式问题
 
-������Ҫ�ύ return false��
+表单不要提交 return false；
 
-SQL��䲻Ҫд�� xml�ļ�������������д��
+SQL语句不要写死 xml文件中条件尽量别写死
 
-���ϲ�ѯ:����ͬʱʹ�ö��join 
+联合查询:可以同时使用多个join 
 
-�ύʱ��Ҫʹ��word
+提交时不要使用word
 
-jsp��Eplus�༭
+jsp用Eplus编辑
 
-SQL���ע�ⶺ�ţ�ע��ϸ��
+SQL语句注意逗号，注意细节
 
 debug breakpoints
 
-���submit��ť���ύ������������Ҫ��submit��ť��click�¼�
+点击submit按钮会提交表单，尽量不要给submit按钮绑定click事件
 
-�¼���:on(type,[selector],[data],fn)
+事件绑定:on(type,[selector],[data],fn)
 
-��ɾ���ݿ��ֶ�ʱҪ�޸�������
+增删数据库字段时要修改两个库
 
-json�в��ܴ������ֻ��json����json
+json中不能传输对象，只能json中套json
 
-keyProperty����Ϊʵ�������������Կ��Է�������ֵ
+keyProperty设置为实体类中主键属性可以返回主键值
 
-ҳ��֮�䴫ֵ��ô�id������ҳ��֮�����϶ȣ���߰�ȫ�ԣ���֤���ݼ�ʱ�ԣ���������ݵĹ�������Ҫ������ҳ�棬���¶��
+页面之间传值最好传id，降低页面之间的耦合度，提高安全性，保证数据即时性，将获得数据的工作交给要调至的页面，不怕多查
 
-�����ύ���name��ͬ��inputʱ���������ݿ���ж���
+表单提交多个name相同的input时，插入数据库会有逗号
 
-@Param("id") ��Ӧsql�е�#{id},�����е�id��sql�н��ղ����Ĳ��������Ӧ
+@Param("id") 对应sql中的#{id},括号中的id与sql中接收参数的参数名相对应
 
-�鿴ϵͳ��־ ��ps -ef|grep java ����ϵͳ���� ��logs�в鿴��־  ��tail -f *.out�鿴ʵʱ��־����cat ***�鿴ȫ����־
+查看系统日志 用ps -ef|grep java 查找系统进程 进logs中查看日志  用tail -f *.out查看实时日志，用cat ***查看全部日志
 
-select for update ��ֻ����չʾ�������ʱ����for update ���������֮��Ҫ���в�����Ҫfor update ��֤����ĸ����ԣ�����ȡ��ͬ��
-	            ��for update ����ָ��������where id = "3"���������ס���ű�����������סһ����¼ 
-	            for share �������������������
+select for update ：只用来展示搜索结果时不用for update 搜索出结果之后还要进行操作的要for update 保证事务的隔离性，银行取款同步
+	            且for update 必须指明主键（where id = "3"）否则会锁住整张表，而不是锁住一条记录 
+	            for share 容易造成死锁尽量别用
 
 jsp -> controller(criteria) -> service -> dao(entity|criteria) -> vo(entity) -> jsp
 
-@TranscationalĬ������RunTimeException��ع��������쳣����ع��������������쳣Ҳ�����@Transcational(rollbackFor = Exception.class)
+@Transcational默认遇到RunTimeException会回滚，其他异常不会回滚，若想遇其他异常也会滚用@Transcational(rollbackFor = Exception.class)
 
-checkbox ��Ϊδѡ�У�.attr("checked',false);
+checkbox 变为未选中：.attr("checked',false);
 
-html �Դ�������prop���Լ������������attr
+html 自带属性用prop，自己定义的属性用attr
 
-@Transctional Ĭ������RuntimeException����rollback���������׳�������ʱ�쳣ʱ���᳷��֮ǰ�Ѿ����еĲ����������������쳣Ҳ�����@Transcational(rollbackFor = Exception.class)
+@Transctional 默认遇到RuntimeException进行rollback操作，当抛出非运行时异常时不会撤销之前已经进行的操作，若想遇其他异常也会滚用@Transcational(rollbackFor = Exception.class)
 
-��������ʱ���ȿ������ļ��Ƿ���ȷ��
+发生问题时，先看配置文件是否正确。
 
-ÿ�η���������ʱע�⽫manager�е�map��list��clearһ�£�������ܵ��������ظ����⣬����init����������clear����
+每次服务器启动时注意将manager中的map，list等clear一下，否则可能导致数据重复问题，即在init方法中添加clear方法
 
-��ѡ��ѡ�е�������ύֵΪnull
+复选框不选中的情况下提交值为null
 
-Long��Integer�Ȱ�װ�಻Ӧ����==���бȽϣ���װ��Ϊ���󣬶���Ƚ�Ӧ����equals������Long��Integer�л�����ƣ��ѻ����-128��127��Long����ͬһ����������==ʱ�����ַ��ͬ��Ҳ�ܳɹ���
+Long，Integer等包装类不应该用==进行比较，包装类为对象，对象比较应该用equals方法。Long，Integer有缓存机制，已缓存好-128到127的Long对象，同一个对象，所以==时对象地址相同，也能成功。
 
-���ݿ��޸�ע������ƥ��b_order_detail �� b_order_detail_his
+数据库修改注意数据匹配b_order_detail 和 b_order_detail_his
 
-��֪����Щ�ط��õ��������޸ĵ��࣬�������޸ĵ���ĸ����֣������ﱨ����
+想知道哪些地方用到了你所修改的类，把你所修改的类改个名字，看哪里报错。
 
-�޸�һ�ű����ֶΣ���Ҫһ���޸ĵ��У�ʵ���࣬dao resultMap��dao column��dao insert��vo��criteria����his���Ļ���Ҫ�޸�his��
+修改一张表的字段，需要一起修改的有：实体类，dao resultMap，dao column，dao insert，vo，criteria，有his表的话还要修改his表
 
-Map put Ԫ��ʱ��ʹ����containsKey�������ٴ�ʹ��ʱ��Ҫ����clear����������ᵼ��value�ظ�����ͬһԪ�ض��put��
+Map put 元素时，使用了containsKey方法，再次使用时需要调用clear方法，否则会导致value重复，即同一元素多次put。
 
-�ڽ��ҳ��չʾ˳������ʱ��������sql�н�˳���źá�
+在解决页面展示顺序问题时，尽量在sql中将顺序排好。
 
-.js�ļ�����${pageContext.request.contextPath}ʱ����Ҫ�Բ�������ʽ����ȥ
+.js文件中用${pageContext.request.contextPath}时，需要以参数的形式传进去
 
-CLASSPATH .   ��ǰ��Ŀ�ĸ�Ŀ¼
+CLASSPATH .   当前项目的根目录
 
 serializable
 
-һ���������л��Ľӿڣ�һ����ֻ��ʵ����Serializable�ӿڣ����Ķ�����ǿ����л��ġ�������Ҫ���л�ĳЩ��Ķ�����Щ��ͱ���ʵ��Serializable�ӿڡ���ʵ���ϣ�Serializable��һ���սӿڣ�û��ʲô�������ݣ�����Ŀ��ֻ�Ǽ򵥵ı�ʶһ����Ķ�����Ա����л���
-ʲô�������Ҫ���л� 
-a��������ѵ��ڴ��еĶ���д�뵽Ӳ�̵�ʱ��
-b�����������׽����������ϴ��Ͷ����ʱ��
-c��������ͨ��RMI��������ʱ��
-����΢����һ��:a)����˵����ڴ治�����ˣ��Ǽ������Ҫ���ڴ������һ���ֶ�����ʱ�ı��浽Ӳ���У��ȵ�Ҫ�õ�ʱ���ٶ��뵽�ڴ��У�Ӳ�̵��ǲ��ִ洢�ռ������ν�������ڴ档�ڱ������Ҫ��ĳ���ض��Ķ��󱣴浽�ļ��У��Ҹ������ڰ����ó����ã���ô��ʱ���Ҫʵ��Serializable�ӿڣ�
-b)�ڽ���java��Socket��̵�ʱ������ʱ�����Ҫ����ĳһ��Ķ�����ôҲ��Ҫʵ��Serializable�ӿڣ�������㴫��һ���ַ���������JDK������࣬Ҳʵ����Serializable�ӿڣ����Կ����������ϴ��䡣
-c)���Ҫͨ��Զ�̵ķ������ã�RMI��ȥ����һ��Զ�̶���ķ��������ڼ����A�е�����һ̨�����B�Ķ���ķ�������ô����Ҫͨ��JNDI�����ȡ�����BĿ���������ã��������B���͵�A������Ҫʵ�����л��ӿڡ� 
+一个对象序列化的接口，一个类只有实现了Serializable接口，它的对象才是可序列化的。因此如果要序列化某些类的对象，这些类就必须实现Serializable接口。而实际上，Serializable是一个空接口，没有什么具体内容，它的目的只是简单的标识一个类的对象可以被序列化。
+什么情况下需要序列化 
+a）当你想把的内存中的对象写入到硬盘的时候；
+b）当你想用套接字在网络上传送对象的时候；
+c）当你想通过RMI传输对象的时候；
+再稍微解释一下:a)比如说你的内存不够用了，那计算机就要将内存里面的一部分对象暂时的保存到硬盘中，等到要用的时候再读入到内存中，硬盘的那部分存储空间就是所谓的虚拟内存。在比如过你要将某个特定的对象保存到文件中，我隔几天在把它拿出来用，那么这时候就要实现Serializable接口；
+b)在进行java的Socket编程的时候，你有时候可能要传输某一类的对象，那么也就要实现Serializable接口；最常见的你传输一个字符串，它是JDK里面的类，也实现了Serializable接口，所以可以在网络上传输。
+c)如果要通过远程的方法调用（RMI）去调用一个远程对象的方法，如在计算机A中调用另一台计算机B的对象的方法，那么你需要通过JNDI服务获取计算机B目标对象的引用，将对象从B传送到A，就需要实现序列化接口。 
+
+serialVersionUID作用是序列化时保持版本的兼容性，即在版本升级时反序列化仍保持对象的唯一性。
+考虑一下,如果今天你的类Serialized存到硬碟里,
+可是後来你却更改了类别的field(增加或减少或改名).
+当你Deserialize时,就会出现Exception.这样就会做成不兼容性的问题.

@@ -1,0 +1,2 @@
+1/ netstat -nap | grep 48064 根据pid查询占用端口号
+2/ netstat -apn | grep 8080  根据端口号查看pid

@@ -1,0 +1,2 @@
+1 tomcat起不来，日志中断不报错：
+  原因 dao.xml namespace路径错误；

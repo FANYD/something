@@ -1,2 +1,8 @@
 1 tomcat起不来，日志中断不报错：
   原因 dao.xml namespace路径错误；
+2 2017-03-10 17:33:26.437 [PROVIDER] [DubboServerHandler-192.168.1.60:20880-thread-21] ERROR [Slf4jLogger.java:74] ExceptionFilter -  [DUBBO] Got unchecked and undeclared exception which called 	by 192.168.1.60. service: com.baojiabei.facade.service.circle.ServPostService, method: post, exception: org.springframework.jdbc.UncategorizedSQLException: 
+	### Error querying database.  Cause: org.postgresql.util.PSQLException: ERROR: current transaction is aborted, commands ignored until end of transaction block
+	### The error may exist in file [D:\software\apache-tomcat-8.0.21\webapps\provider\WEB-INF\classes\com\baojiabei\provider\base\dao\UtilDao.xml]
+	### The error may involve defaultParameterMap
+	### The error occurred while setting parameters
+	### SQL: select   current_timestamp;

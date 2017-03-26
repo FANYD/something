@@ -147,7 +147,6 @@ def generate(dirName, table, out, className, fields) {
             }
         }
     }
-    out.println ""
     out.println "    </update>"
 
     //delete

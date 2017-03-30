@@ -120,6 +120,7 @@ def generate(dirName, table, out, className, fields) {
         }
     }
     out.println ""
+    out.println "        )"
     out.println "    </insert>"
 
     //update
@@ -128,7 +129,7 @@ def generate(dirName, table, out, className, fields) {
     out.println "        update " + table.getName()
     out.println "        set"
     fields.each() {
-        if (it.sqlName != fields[0].sqlName && it.name != ("createDatetime")) {
+        if (it.sqlName != fields[0].sqlName) {
             if (it.name != ("updateDatetime")) {
                 out.print "        ${it.sqlName}"
                 for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
@@ -147,6 +148,7 @@ def generate(dirName, table, out, className, fields) {
             }
         }
     }
+    out.println ""
     out.println "    </update>"
 
     //delete

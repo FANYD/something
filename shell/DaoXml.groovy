@@ -149,6 +149,7 @@ def generate(dirName, table, out, className, fields) {
         }
     }
     out.println ""
+    out.println "        where " + fields[0].sqlName + " = #{" + fields[0].name + "}"
     out.println "    </update>"
 
     //delete

@@ -7,5 +7,8 @@
 	### The error occurred while setting parameters
 	### SQL: select   current_timestamp;
   原因 看日志的最上面sql有问题
-3 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Invocation of  init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping found. Cannot map 'commonPolicyController' bean method
+3 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Invocation of    init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping found. Cannot map 'commonPolicyController' bean method
   原因 controller requestMapping 路径问题 
+4 java.lang.InstantiationException
+  原因 这个错误一般是在使用反射创建对象的时候出现的异常
+       一般是这个类是接口或者是抽象类,或者是该类没有无参构造方法报的错误.

@@ -13,6 +13,7 @@ typeMapping = [
         (~/(?i)integer/)                  : "Integer",
         (~/(?i)bigint/)                   : "Long",
         (~/(?i)float|double|decimal|real/): "Double",
+        (~/(?i)numeric/)                  : "BigDecimal",
         (~/(?i)datetime|timestamp/)       : "Timestamp",
         (~/(?i)date/)                     : "Date",
         (~/(?i)time/)                     : "Time",

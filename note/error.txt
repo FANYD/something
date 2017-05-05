@@ -16,4 +16,4 @@
 	at com.alibaba.com.caucho.hessian.io.Hessian2Input.error(Hessian2Input.java:2720) ~[dubbo-2.8.4.jar:2.8.4]
 	at com.alibaba.com.caucho.hessian.io.Hessian2Input.expect(Hessian2Input.java:2691) ~[dubbo-2.8.4.jar:2.8.4]
 	at com.alibaba.com.caucho.hessian.io.Hessian2Input.readInt(Hessian2Input.java:773) ~[dubbo-2.8.4.jar:2.8.4]
-  原因 hession版本不一致 实际问题:服务器更换dubbo.jar导致客户端与服务端hession版本不一致 hession协议不一致导致报错
+  原因 hession版本不一致 实际问题:服务器更换dubbo.jar导致客户端与服务端hession版本不一致 hession协议不一致导致报错	       

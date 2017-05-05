@@ -1,0 +1,16 @@
+1.批量插入
+        insert into g_welfare_staff (
+        <include refid="column"/>
+        )
+        select
+            comp_id,
+            #{compWelfareId}  as comp_welfare_id,
+            comp_staff_id,
+            #{status}         as status,
+            current_timestamp as join_datetime,
+            null              as back_datetime,
+            null              as memo,
+            current_timestamp as update_datetime,
+            current_timestamp as create_datetime
+        from ps_comp_staff
+        where comp_id = #{compId} and bind_flag = 'Y'

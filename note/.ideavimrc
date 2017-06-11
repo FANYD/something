@@ -1,0 +1,47 @@
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+imap jk <ESC>
+
+nnoremap <Leader>;; :action CommentByLineComment<CR>
+
+nnoremap <Leader>bb :action ToggleLineBreakpoint<CR>
+
+nnoremap <Leader>cv :action ChangeView<CR>
+nnoremap <Leader>cd :action ChooseDebugConfiguration<CR>
+
+nnoremap <Leader>ga :action GotoAction<CR>
+nnoremap <Leader>gc :action GotoClass<CR>
+nnoremap <Leader>gd :action GotoDeclaration<CR>
+nnoremap <Leader>gf :action GotoFile<CR>
+nnoremap <Leader>gi :action GotoImplementation<CR>
+nnoremap <Leader>gs :action GotoSuperMethod<CR>
+nnoremap <Leader>gt :action GotoTypeDeclaration<CR>
+nnoremap <Leader>gy :action GotoSymol<CR>
+
+nnoremap <Leader>fp :action FindInPath<CR>
+nnoremap <Leader>fu :action FindUsages<CR>
+
+nnoremap <Leader>ic :action InspectCode<CR>
+
+nnoremap <Leader>oi :action OptimizeImports<CR>
+
+nnoremap <Leader>pm :action ShowPopupMenu<CR>
+
+nnoremap <Leader>rc :action ChooseRunConfiguration<CR>
+nnoremap <Leader>re :action RenameElement<CR>
+nnoremap <Leader>rf :action RecentFiles<CR>
+
+nnoremap <Leader>sb :action ShowBookmarks<CR>
+nnoremap <Leader>se :action SearchEverywhere<CR>
+nnoremap <Leader>sp :action ShowFilePath<CR>
+nnoremap <Leader>su :action ShowUsages<CR>
+
+nnoremap <Leader>vb :action ViewBreakpoints<CR>
+
+nnoremap <Leader>tc :action CloseActiveTab<CR>
+nnoremap <Leader>tl Vy<CR>:action ActivateTerminalToolWindow<CR>
+vnoremap <Leader>tl y<CR>:action ActivateTerminalToolWindow<CR>

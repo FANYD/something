@@ -1,0 +1,11 @@
+--本地执行
+ (导出到文件)
+pg_dump -U postgres -p 5432 -d bjpay_test_v1 -f bjpay.sql -h 192.168.1.21
+ (入库)
+psql -h aijiabao.pg.rds.aliyuncs.com -U aijiabao -d bjpay -p 3432 < bjpay.sql
+
+--本地执行
+ (导出到文件)
+pg_dump -U postgres -p 5432 -d aijiabao_test_v1 -f ajb.sql -h 192.168.1.21
+ (入库)
+psql -h aijiabao.pg.rds.aliyuncs.com -U aijiabao -d aijiabao -p 3432 < ajb.sql

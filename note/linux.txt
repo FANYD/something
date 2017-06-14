@@ -11,3 +11,5 @@
    -rw-rw-rw-   (666) 每个人都有读写的权限 
    -rwxrwxrwx   (777) 每个人都有读写和执行的权限
 6/ ps -ef|grep tomcat|wc -l 查看进程数(减一)
+7/ find .|xargs grep -ri "IBM" 查找目录下的所有文件中是否含有某个字符串
+8/ find .|xargs grep -ri "IBM" -l 查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名

@@ -9,9 +9,11 @@ imap jk <ESC>
 nnoremap <Leader>;; :action CommentByLineComment<CR>
 
 nnoremap <Leader>bb :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>bp :action CompileDirty<CR>
 
-nnoremap <Leader>cv :action ChangeView<CR>
 nnoremap <Leader>cd :action ChooseDebugConfiguration<CR>
+nnoremap <Leader>cr :action ChooseRunConfiguration<CR>
+nnoremap <Leader>cv :action ChangeView<CR>
 
 nnoremap <Leader>ga :action GotoAction<CR>
 nnoremap <Leader>gc :action GotoClass<CR>
@@ -20,9 +22,12 @@ nnoremap <Leader>gf :action GotoFile<CR>
 nnoremap <Leader>gi :action GotoImplementation<CR>
 nnoremap <Leader>gs :action GotoSuperMethod<CR>
 nnoremap <Leader>gt :action GotoTypeDeclaration<CR>
-nnoremap <Leader>gy :action GotoSymol<CR>
+nnoremap <Leader>gy :action GotoSymbol<CR>
+
+nnoremap <Leader>hu :action HighlightUsagesInFile<CR>
 
 nnoremap <Leader>fp :action FindInPath<CR>
+nnoremap <Leader>fs :action FileStructurePopup<CR>
 nnoremap <Leader>fu :action FindUsages<CR>
 
 nnoremap <Leader>ic :action InspectCode<CR>
@@ -31,9 +36,10 @@ nnoremap <Leader>oi :action OptimizeImports<CR>
 
 nnoremap <Leader>pm :action ShowPopupMenu<CR>
 
-nnoremap <Leader>rc :action ChooseRunConfiguration<CR>
+nnoremap <Leader>rc :action Compile<CR>
 nnoremap <Leader>re :action RenameElement<CR>
 nnoremap <Leader>rf :action RecentFiles<CR>
+nnoremap <Leader>rv :action Rebuild<CR>
 
 nnoremap <Leader>sb :action ShowBookmarks<CR>
 nnoremap <Leader>se :action SearchEverywhere<CR>

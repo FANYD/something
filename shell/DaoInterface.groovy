@@ -46,10 +46,9 @@ def generate(dirName, out, className, fields) {
     out.println ""
     out.println "package $dirName"
     out.println ""
-    out.println "import com.baojiabei.provider.core.dao.IGenericDao;"
     out.println ""
     out.println "/**"
-    out.println " * Created by FYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
+    out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
     out.println "public interface $className" + "Dao extends IGenericDao<$className, " + fields[0].type + "> {"
     out.print "}"

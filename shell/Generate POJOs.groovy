@@ -47,7 +47,7 @@ def generate(out, className, fields) {
     out.println "    return ${it.name};"
     out.println "  }"
     out.println ""
-    out.println "  public void set${it.name.capitalize()}(${it.type} ${it.name}) {}"
+    out.println "  public void set${it.name.capitalize()}(${it.type} ${it.name}) {"
     out.println "    this.${it.name} = ${it.name};"
     out.println "  }"
     out.println ""
@@ -67,6 +67,7 @@ def calcFields(table) {
 }
 
 def javaName(str, capitalize) {
-  def s = str.split(/[^\p{Alnum}]/).collect { def s = Case.LOWER.apply(it).capitalize() }.join("")
-  capitalize ? s : Case.LOWER.apply(s[0]) + s[1..-1]
+  def s = str.split(/(?<=[^\p{IsLetter}])/).collect { Case.LOWER.apply(it).capitalize() }
+          .join("").replaceAll(/[^\p{javaJavaIdentifierPart}]/, "_")
+  capitalize || s.length() == 1? s : Case.LOWER.apply(s[0]) + s[1..-1]
 }

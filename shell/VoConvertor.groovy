@@ -27,7 +27,7 @@ def generate(table, dir) {
     def dirName = dir.toString().substring(dir.toString().indexOf("java") + 5).replace("\\", ".") + ";"
     def className = javaClassName(table.getName(), true)
     def fields = calcFields(table)
-    new File(dir, className + "VoConvertor.java").withPrintWriter { out -> generate(dirName, out, className, fields) }
+    new File(dir, className + "VoConverter.java").withPrintWriter { out -> generate(dirName, out, className, fields) }
 }
 
 def generate(dirName, out, className, fields) {
@@ -46,15 +46,14 @@ def generate(dirName, out, className, fields) {
     out.println ""
     out.println "package $dirName"
     out.println ""
-    out.println "import com.baojiabei.facade.core.vo.VoConvertor;"
     out.println ""
     out.println "/**"
-    out.println " * Created by FYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
+    out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
-    out.println "public class $className" + "VoConvertor extends VoConvertor<$className" + "Vo, $className> {"
+    out.println "public class $className" + "VoConverter extends VoConverter<$className" + "Vo, $className> {"
     out.println ""
     out.println "    @Override"
-    out.println "    public $className" + "Vo convert($className bo, Object... objects) {"
+    out.println "    public $className" + "Vo convert($className bo, VoConfig config) {"
     out.println "        $className" + "Vo vo = new $className" + "Vo();"
     out.println "        this.autoConvert(vo, bo);"
     out.println "        return vo;"

@@ -131,11 +131,13 @@ def generate(dirName, table, out, className, fields) {
     fields.each() {
         if (it.sqlName != fields[0].sqlName) {
             if (it.name != ("updateDatetime")) {
-                out.print "        ${it.sqlName}"
-                for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
-                    out.print " "
+                if (it.name != ("createDatetime")) {
+                    out.print "        ${it.sqlName}"
+                    for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
+                        out.print " "
+                    }
+                    out.print "= #{${it.name}}"
                 }
-                out.print "= #{${it.name}}"
             } else {
                 out.print "        ${it.sqlName}"
                 for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
@@ -143,8 +145,14 @@ def generate(dirName, table, out, className, fields) {
                 }
                 out.print "= current_timestamp"
             }
-            if (it.sqlName != fields[fields.size() -1].sqlName) {
-                out.println ","
+            if (fields[fields.size() -1].sqlName == "create_datetime") {
+                if (it.sqlName != fields[fields.size() -1].sqlName && it.sqlName != fields[fields.size() -2].sqlName) {
+                    out.println ","
+                }
+            } else {
+                if (it.sqlName != fields[fields.size() -1].sqlName) {
+                    out.println ","
+                }
             }
         }
     }

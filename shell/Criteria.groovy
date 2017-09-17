@@ -44,10 +44,9 @@ def generate(dirName, out, className, fields) {
     out.println ""
     out.println "package $dirName"
     out.println ""
-    out.println "import com.baojiabei.facade.core.criteria.AbstractCriteria;"
     out.println ""
     out.println "/**"
-    out.println " * Created by FYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
+    out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
     out.println "public class $className" + "Criteria extends AbstractCriteria {"
     fields.each() {
@@ -65,6 +64,23 @@ def generate(dirName, out, className, fields) {
         out.println "        this.${it.name} = ${it.name};"
         out.println "    }"
     }
+    out.println ""
+    out.println "    @Override"
+    out.println "    public String toString() {"
+    out.println "        return \"$className {\" +"
+    out.println "               \"${fields[0].name}=\" + ${fields[0].name} +"
+    fields.each() {
+        if (it.name != fields[0].name) {
+            out.print "               \",${it.name}="
+            if (it.type == "String") {
+                out.println "\'\" + ${it.name} + \'\\\'\' +"
+            } else {
+                out.println "\" + ${it.name} +"
+            }
+        }
+    }
+    out.println "               \'}\';"
+    out.println "    }"
     out.print "}"
 }
 

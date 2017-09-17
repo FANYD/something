@@ -13,3 +13,4 @@
 6/ ps -ef|grep tomcat|wc -l 查看进程数(减一)
 7/ find .|xargs grep -ri "IBM" 查找目录下的所有文件中是否含有某个字符串
 8/ find .|xargs grep -ri "IBM" -l 查找目录下的所有文件中是否含有某个字符串,并且只打印出文件名
+9/ find /home/medref/tomcat-provider/ -name dubbo.properties -exec grep "version" {} \; 查询某一文件中包含某字符串的行

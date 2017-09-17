@@ -33,16 +33,17 @@ def generate(table, dir) {
 
 def generate(dirName, out, className, fields) {
     out.println "/*\n" +
-            " * Copyright (C) 2014-2016 Beijing BaoJiaBei Technology Co.,Ltd.\n" +
+            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
             " * \n" +
             " * All right reserved.\n" +
             " * \n" +
             " * This software is the confidential and proprietary\n" +
-            " * information of BaoJiaBei Company of China. \n" +
+            " * information of Nuhtech Company of China. \n" +
             " * (\"Confidential Information\"). You shall not disclose\n" +
             " * such Confidential Information and shall use it only\n" +
             " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with BaoJiaBei inc.\n" +
+            " * you entered into with Nuhtech inc.\n" +
+            " * \n" +
             " */"
     out.println ""
     out.println "package $dirName"
@@ -94,11 +95,11 @@ def generate(dirName, out, className, fields) {
     out.println ""
     out.println "    @Override"
     out.println "    public String toString() {"
-    out.println "        return \"$className {\" +"
-    out.println "               \"${fields[0].name}=\" + ${fields[0].name} +"
+    out.println "        return \"${className}{\" +"
+    out.println "                \"${fields[0].name}=\" + ${fields[0].name} +"
     fields.each() {
         if (it.name != fields[0].name) {
-            out.print "               \",${it.name}="
+            out.print "                \" ,${it.name}="
             if (it.type == "String") {
                 out.println "\'\" + ${it.name} + \'\\\'\' +"
             } else {
@@ -106,7 +107,7 @@ def generate(dirName, out, className, fields) {
             }
         }
     }
-    out.println "               \'}\';"
+    out.println "                \'}\';"
     out.println "    }"
     out.print "}"
 }

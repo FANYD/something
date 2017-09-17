@@ -32,16 +32,17 @@ def generate(table, dir) {
 
 def generate(dirName, out, className, fields) {
     out.println "/*\n" +
-            " * Copyright (C) 2014-2016 Beijing BaoJiaBei Technology Co.,Ltd.\n" +
+            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
             " * \n" +
             " * All right reserved.\n" +
             " * \n" +
             " * This software is the confidential and proprietary\n" +
-            " * information of BaoJiaBei Company of China. \n" +
+            " * information of Nuhtech Company of China. \n" +
             " * (\"Confidential Information\"). You shall not disclose\n" +
             " * such Confidential Information and shall use it only\n" +
             " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with BaoJiaBei inc.\n" +
+            " * you entered into with Nuhtech inc.\n" +
+            " * \n" +
             " */"
     out.println ""
     out.println "package $dirName"

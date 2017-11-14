@@ -1,4 +1,4 @@
-nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-j> :mv.+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
@@ -15,22 +15,27 @@ nnoremap <Leader>cd :action ChooseDebugConfiguration<CR>
 nnoremap <Leader>cr :action ChooseRunConfiguration<CR>
 nnoremap <Leader>cv :action ChangeView<CR>
 
+nnoremap <Leader>fp :action FindInPath<CR>
+nnoremap <Leader>fs :action FileStructurePopup<CR>
+nnoremap <Leader>fu :action FindUsages<CR>
+
 nnoremap <Leader>ga :action GotoAction<CR>
 nnoremap <Leader>gc :action GotoClass<CR>
 nnoremap <Leader>gd :action GotoDeclaration<CR>
 nnoremap <Leader>gf :action GotoFile<CR>
 nnoremap <Leader>gi :action GotoImplementation<CR>
+nnoremap <Leader>gr :action Generate<CR>
 nnoremap <Leader>gs :action GotoSuperMethod<CR>
 nnoremap <Leader>gt :action GotoTypeDeclaration<CR>
 nnoremap <Leader>gy :action GotoSymbol<CR>
 
+nnoremap <Leader>ha :action HideAllWindows<CR>
 nnoremap <Leader>hu :action HighlightUsagesInFile<CR>
 
-nnoremap <Leader>fp :action FindInPath<CR>
-nnoremap <Leader>fs :action FileStructurePopup<CR>
-nnoremap <Leader>fu :action FindUsages<CR>
-
 nnoremap <Leader>ic :action InspectCode<CR>
+
+nnoremap <Leader>jc :action JumpToLastChange<CR>
+nnoremap <Leader>jl :action JumpToLastWindow<CR>
 
 nnoremap <Leader>oi :action OptimizeImports<CR>
 
@@ -39,6 +44,7 @@ nnoremap <Leader>pm :action ShowPopupMenu<CR>
 nnoremap <Leader>rc :action Compile<CR>
 nnoremap <Leader>re :action RenameElement<CR>
 nnoremap <Leader>rf :action RecentFiles<CR>
+nnoremap <Leader>rp :action ReplaceInPath<CR>
 nnoremap <Leader>rv :action Rebuild<CR>
 
 nnoremap <Leader>sb :action ShowBookmarks<CR>
@@ -48,6 +54,4 @@ nnoremap <Leader>su :action ShowUsages<CR>
 
 nnoremap <Leader>vb :action ViewBreakpoints<CR>
 
-nnoremap <Leader>tc :action CloseActiveTab<CR>
-nnoremap <Leader>tl Vy<CR>:action ActivateTerminalToolWindow<CR>
-vnoremap <Leader>tl y<CR>:action ActivateTerminalToolWindow<CR>
+vnoremap <Leader>tl :action ActivateTerminalToolWindow<CR>

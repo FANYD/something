@@ -8,6 +8,19 @@ import java.text.SimpleDateFormat
 /*
  * Created by FanYD on 2017.03.23
  */
+copyRight = "/*\n" +
+        " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
+        " *\n" +
+        " * All right reserved.\n" +
+        " *\n" +
+        " * This software is the confidential and proprietary\n" +
+        " * information of Nuhtech Company of China.\n" +
+        " * (\"Confidential Information\"). You shall not disclose\n" +
+        " * such Confidential Information and shall use it only\n" +
+        " * in accordance with the terms of the contract agreement\n" +
+        " * you entered into with Nuhtech inc.\n" +
+        " *\n" +
+        " */"
 
 typeMappingEntity = [
         (~/(?i)integer/)                  : "Integer",
@@ -53,13 +66,13 @@ typeMappingInterface = [
         (~/(?i)/)                         : "String"
 ]
 typeMappingXml = [
-        (~/(?i)integer/)                  : "Integer",
-        (~/(?i)bigint/)                   : "Long",
-        (~/(?i)float|double|decimal|real/): "Double",
+        (~/(?i)integer/)                  : "java.lang.Integer",
+        (~/(?i)bigint/)                   : "java.lang.Long",
+        (~/(?i)float|double|decimal|real/): "java.lang.Double",
         (~/(?i)datetime|timestamp/)       : "Timestamp",
         (~/(?i)date/)                     : "Date",
         (~/(?i)time/)                     : "Time",
-        (~/(?i)/)                         : "String"
+        (~/(?i)/)                         : "java.lang.String"
 ]
 
 FILES.chooseDirectoryAndSave("Choose directory", "Choose where to store generated files") { dir ->
@@ -71,7 +84,7 @@ def generate(table, dir) {
     def dirNameCriteria = dirName.replace("entity", "criteria")
     def dirNameVo = dirName.replace("entity", "vo")
     def dirNameVoConverter = dirName.replace("entity", "vo").replace("facade", "provider").replace("facade", "provider")
-    def dirNameDao = dirName.replace("entity", "dao").replace("facade", "provider").replace("facade", "provider")
+    def dirNameDao = dirName.replace("entity", "dao").replace("facade", "provider").replace("facade", "provider").replace(";", "")
     def className = javaClassName(table.getName(), true)
     def fieldsEntity = calcFieldsEntity(table)
     def fieldsCriteria = calcFieldsCriteria(table)
@@ -79,32 +92,27 @@ def generate(table, dir) {
     def fieldsVoConverter = calcFieldsVoConverter(table)
     def fieldsInterface = calcFieldsInterface(table)
     def fieldsXml = calcFieldsXml(table)
+    dir = dir.toString()
     def dirCriteria = dir.toString().replace("entity", "criteria");
     def dirVo = dir.toString().replace("entity", "vo");
     def dirVoConverter = dir.toString().replace("entity", "vo").replace("facade", "provider").replace("facade", "provider")
     def dirDao = dir.toString().replace("entity", "dao").replace("facade", "provider").replace("facade", "provider")
+    new File(dir).mkdirs()
     new File(dir, className + ".java").withPrintWriter { out -> generateEntity(dirName, out, className, fieldsEntity) }
-    new File(dirCriteria, className + "Criteria.java").withPrintWriter { out -> generateCriteria(dirNameCriteria,out, className, fieldsCriteria) }
+    new File(dirCriteria).mkdirs()
+    new File(dirCriteria, className + "Criteria.java").withPrintWriter { out -> generateCriteria(dirNameCriteria, out, className, fieldsCriteria) }
+    new File(dirVo).mkdirs()
     new File(dirVo, className + "Vo.java").withPrintWriter { out -> generateVo(dirNameVo, out, className, fieldsVo) }
+    new File(dirVoConverter).mkdirs()
     new File(dirVoConverter, className + "VoConverter.java").withPrintWriter { out -> generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) }
+    new File(dirDao).mkdirs()
     new File(dirDao, className + "Dao.java").withPrintWriter { out -> generateInterface(dirNameDao, out, className, fieldsInterface) }
+    new File(dirDao).mkdirs()
     new File(dirDao, className + "Dao.xml").withPrintWriter { out -> generateXml(dirNameDao, table, out, className, fieldsXml) }
 }
 
 def generateEntity(dirName, out, className, fieldsEntity) {
-    out.println "/*\n" +
-            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
-            " * \n" +
-            " * All right reserved.\n" +
-            " * \n" +
-            " * This software is the confidential and proprietary\n" +
-            " * information of Nuhtech Company of China. \n" +
-            " * (\"Confidential Information\"). You shall not disclose\n" +
-            " * such Confidential Information and shall use it only\n" +
-            " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with Nuhtech inc.\n" +
-            " * \n" +
-            " */"
+    out.println copyRight
     out.println ""
     out.println "package $dirName"
     out.println ""
@@ -137,6 +145,8 @@ def generateEntity(dirName, out, className, fieldsEntity) {
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
     out.println "public class $className implements Serializable {"
+    out.println ""
+    out.println "    private static final long serialVersionUID = " + generateUID() + ";"
     fieldsEntity.each() {
         out.println ""
         if (it.annos != "") out.println "  ${it.annos}"
@@ -171,28 +181,18 @@ def generateEntity(dirName, out, className, fieldsEntity) {
     out.println "    }"
     out.print "}"
 }
+
 def generateCriteria(dirNameCriteria, out, className, fieldsCriteria) {
-    out.println "/*\n" +
-            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
-            " * \n" +
-            " * All right reserved.\n" +
-            " * \n" +
-            " * This software is the confidential and proprietary\n" +
-            " * information of Nuhtech Company of China. \n" +
-            " * (\"Confidential Information\"). You shall not disclose\n" +
-            " * such Confidential Information and shall use it only\n" +
-            " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with Nuhtech inc.\n" +
-            " * \n" +
-            " */"
+    out.println copyRight
     out.println ""
     out.println "package $dirNameCriteria"
-    out.println ""
     out.println ""
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
     out.println "public class $className" + "Criteria extends AbstractCriteria {"
+    out.println ""
+    out.println "    private static final long serialVersionUID = " + generateUID() + ";"
     fieldsCriteria.each() {
         out.println ""
         if (it.annos != "") out.println "  ${it.annos}"
@@ -227,20 +227,9 @@ def generateCriteria(dirNameCriteria, out, className, fieldsCriteria) {
     out.println "    }"
     out.print "}"
 }
+
 def generateVo(dirNameVo, out, className, fieldsVo) {
-    out.println "/*\n" +
-            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
-            " * \n" +
-            " * All right reserved.\n" +
-            " * \n" +
-            " * This software is the confidential and proprietary\n" +
-            " * information of Nuhtech Company of China. \n" +
-            " * (\"Confidential Information\"). You shall not disclose\n" +
-            " * such Confidential Information and shall use it only\n" +
-            " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with Nuhtech inc.\n" +
-            " * \n" +
-            " */"
+    out.println copyRight
     out.println ""
     out.println "package $dirNameVo"
     out.println ""
@@ -265,6 +254,8 @@ def generateVo(dirNameVo, out, className, fieldsVo) {
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
     out.println "public class $className" + "Vo implements Serializable {"
+    out.println ""
+    out.println "    private static final long serialVersionUID = " + generateUID() + ";"
     fieldsVo.each() {
         out.println ""
         if (it.annos != "") out.println "    ${it.annos}"
@@ -300,27 +291,16 @@ def generateVo(dirNameVo, out, className, fieldsVo) {
 
     out.print "}"
 }
+
 def generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) {
-    out.println "/*\n" +
-            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
-            " * \n" +
-            " * All right reserved.\n" +
-            " * \n" +
-            " * This software is the confidential and proprietary\n" +
-            " * information of Nuhtech Company of China. \n" +
-            " * (\"Confidential Information\"). You shall not disclose\n" +
-            " * such Confidential Information and shall use it only\n" +
-            " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with Nuhtech inc.\n" +
-            " * \n" +
-            " */"
+    out.println copyRight
     out.println ""
     out.println "package $dirNameVoConverter"
-    out.println ""
     out.println ""
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
+    out.println "@Component"
     out.println "public class $className" + "VoConverter extends VoConverter<$className" + "Vo, $className> {"
     out.println ""
     out.println "    @Override"
@@ -331,23 +311,11 @@ def generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) {
     out.println "    }"
     out.print "}"
 }
+
 def generateInterface(dirNameDao, out, className, fieldsInterface) {
-    out.println "/*\n" +
-            " * Copyright (C) 2014-2020 Nuhtech Technology(Beijing) Co.,Ltd.\n" +
-            " * \n" +
-            " * All right reserved.\n" +
-            " * \n" +
-            " * This software is the confidential and proprietary\n" +
-            " * information of Nuhtech Company of China. \n" +
-            " * (\"Confidential Information\"). You shall not disclose\n" +
-            " * such Confidential Information and shall use it only\n" +
-            " * in accordance with the terms of the contract agreement \n" +
-            " * you entered into with Nuhtech inc.\n" +
-            " * \n" +
-            " */"
+    out.println copyRight
     out.println ""
-    out.println "package $dirNameDao"
-    out.println ""
+    out.println "package $dirNameDao;"
     out.println ""
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
@@ -355,6 +323,7 @@ def generateInterface(dirNameDao, out, className, fieldsInterface) {
     out.println "public interface $className" + "Dao extends IGenericDao<$className, " + fieldsInterface[0].type + "> {"
     out.print "}"
 }
+
 def generateXml(dirNameDao, table, out, className, fieldsXml) {
     //maxLength
     def maxLength = 0;
@@ -406,7 +375,7 @@ def generateXml(dirNameDao, table, out, className, fieldsXml) {
     fieldsXml.each() {
         if (it.sqlName != fieldsXml[0].sqlName) {
             out.print "${it.sqlName}"
-            if (it.sqlName != fieldsXml[fieldsXml.size() -1].sqlName) {
+            if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName) {
                 out.print ", "
             }
         }
@@ -440,7 +409,7 @@ def generateXml(dirNameDao, table, out, className, fieldsXml) {
             } else {
                 out.print "        current_timestamp"
             }
-            if (it.sqlName != fieldsXml[fieldsXml.size() -1].sqlName) {
+            if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName) {
                 out.println ","
             }
         }
@@ -471,12 +440,12 @@ def generateXml(dirNameDao, table, out, className, fieldsXml) {
                 }
                 out.print "= current_timestamp"
             }
-            if (fieldsXml[fieldsXml.size() -1].sqlName == "create_datetime") {
-                if (it.sqlName != fieldsXml[fieldsXml.size() -1].sqlName && it.sqlName != fieldsXml[fieldsXml.size() -2].sqlName) {
+            if (fieldsXml[fieldsXml.size() - 1].sqlName == "create_datetime") {
+                if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName && it.sqlName != fieldsXml[fieldsXml.size() - 2].sqlName) {
                     out.println ","
                 }
             } else {
-                if (it.sqlName != fieldsXml[fieldsXml.size() -1].sqlName) {
+                if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName) {
                     out.println ","
                 }
             }
@@ -538,11 +507,12 @@ def calcFieldsEntity(table) {
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
         def typeStr = typeMappingEntity.find { p, t -> p.matcher(spec).find() }.value
         fieldsEntity += [[
-                           name : javaName(col.getName(), false),
-                           type : typeStr,
-                           annos: ""]]
+                                 name : javaName(col.getName(), false),
+                                 type : typeStr,
+                                 annos: ""]]
     }
 }
+
 def calcFieldsCriteria(table) {
     DasUtil.getColumns(table).reduce([]) { fieldsCriteria, col ->
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
@@ -553,6 +523,7 @@ def calcFieldsCriteria(table) {
                                    annos: ""]]
     }
 }
+
 def calcFieldsVo(table) {
     DasUtil.getColumns(table).reduce([]) { fieldsVo, col ->
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
@@ -563,6 +534,7 @@ def calcFieldsVo(table) {
                              annos: annotation(typeStr.toString())]]
     }
 }
+
 def calcFieldsVoConverter(table) {
     DasUtil.getColumns(table).reduce([]) { fieldsVoConverter, col ->
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
@@ -573,6 +545,7 @@ def calcFieldsVoConverter(table) {
                                       annos: ""]]
     }
 }
+
 def calcFieldsInterface(table) {
     DasUtil.getColumns(table).reduce([]) { fieldsInterface, col ->
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
@@ -583,15 +556,16 @@ def calcFieldsInterface(table) {
                                     annos: ""]]
     }
 }
+
 def calcFieldsXml(table) {
     DasUtil.getColumns(table).reduce([]) { fieldsXml, col ->
         def spec = Case.LOWER.apply(col.getDataType().getSpecification())
         def typeStr = typeMappingXml.find { p, t -> p.matcher(spec).find() }.value
         fieldsXml += [[
-                              name : javaName(col.getName(), false),
-                              sqlName : col.getName(),
-                              type : typeStr,
-                              annos: ""]]
+                              name   : javaName(col.getName(), false),
+                              sqlName: col.getName(),
+                              type   : typeStr,
+                              annos  : ""]]
     }
 }
 
@@ -617,4 +591,42 @@ def annotation(String str) {
     } else {
         s = ""
     }
+}
+
+private static String generateUID() {
+    StringBuffer id = new StringBuffer("")
+
+    // 符号位
+    Random r = new Random()
+    int flag = r.nextInt(2) % 2
+    if (flag == 1) {
+        id.append("-")
+    }
+
+    // 首位
+    r = new Random()
+    int first = r.nextInt(9) % 9 + 1
+    id.append(first)
+
+    // 次位
+    int second
+    r = new Random()
+    if (first == 9) { // 防止数值越界
+        second = r.nextInt(2) % 2
+    } else {
+        second = r.nextInt(9) % 10
+    }
+    id.append(second)
+
+    // 其余位
+    int max = 9
+    int min = 0
+    for (int i = 0; i < 17; i++) {
+        Random random = new Random()
+        int s = random.nextInt(max) % (max - min + 1) + min
+        id.append(s)
+    }
+    id.append("L")
+
+    return id.toString()
 }

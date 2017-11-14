@@ -1,4 +1,7 @@
-根据配置文件启动redis
+﻿根据配置文件启动redis
+
 redis-server 6379.conf
+
 find / -name redis-server
+
 find / -name 6379.conf

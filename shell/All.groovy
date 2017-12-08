@@ -300,7 +300,6 @@ def generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) {
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
-    out.println "@Component"
     out.println "public class $className" + "VoConverter extends VoConverter<$className" + "Vo, $className> {"
     out.println ""
     out.println "    @Override"

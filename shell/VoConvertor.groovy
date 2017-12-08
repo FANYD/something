@@ -56,7 +56,7 @@ def generate(dirName, out, className, fields) {
     out.println "    @Override"
     out.println "    public $className" + "Vo convert($className bo, VoConfig config) {"
     out.println "        $className" + "Vo vo = new $className" + "Vo();"
-    out.println "        this.autoConvert(vo, bo);"
+    out.println "        this.autoConvert(vo, bo, config);"
     out.println "        return vo;"
     out.println "    }"
     out.print "}"

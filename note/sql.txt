@@ -1,4 +1,4 @@
-1.批量插入
+﻿1.批量插入
         insert into g_welfare_staff (
         <include refid="column"/>
         )
@@ -14,3 +14,37 @@
             current_timestamp as create_datetime
         from ps_comp_staff
         where comp_id = #{compId} and bind_flag = 'Y'
+
+2.批量更新
+UPDATE mr_journal_summary b
+SET article_cnt = a.article_count
+FROM
+  (SELECT
+     journal_id,
+     count(*) AS article_count
+   FROM mr_article t
+   WHERE cast(t.status AS INTEGER) >= 2
+   GROUP BY t.journal_id) a
+WHERE b.journal_id = a.journal_id
+
+(SELECT refer_id, count(*) AS favorite_count
+    FROM mr_favorite t
+    WHERE favorite_type = '6'
+    GROUP BY refer_id) a
+3.替换字符串
+update f_serv_society_duty
+set duty_name = replace(duty_name, '编委委员会', '')
+4.模糊查询不区分大小写(postgres特有)
+select * from scholars where last_name ilike '%Yu%';
+5.批量更新
+update mr_article t
+set reporter_id = 49, creator_id = 49, auditor_id= 49
+from (
+  select article_id
+  from mr_article t
+    left join f_serv a on a.serv_id = t.creator_id
+    left join f_serv b on b.serv_id = t.reporter_id
+    left join f_serv c on c.serv_id = t.auditor_id
+  where a.serv_id is null or b.serv_id is null or c.serv_id is null
+) a
+where t.article_id = a.article_id

@@ -1,22 +1,9 @@
-Git用户/口令:
+﻿Git用户/口令:
 fanyuandong/fanyuandong123 
 
 远端地址(Git)文件位置
 C:\Windows\System32\drivers\etc\hosts
 
-http://127.0.0.1:8080/mini-portal/account/account.html#
-
-测试环境 : http://172.21.1.203:9080/mini-portal/login/login.html
-
-现场：http://sc.h2finance.com/console/frameset/frameset.html
-
-本机: http://172.21.1.32:8080/mini-portal/
-
-测试环境部署：http://172.21.1.203:8989/
-
-OA : http://172.30.3.80/jsoa/CheckUser.jspx;jsessionid=F87C2734CBC50D081D1C3F83C1239F43
-
-你好。请在12月8日的12点前提交电子照片，以便做工牌照。照片要求：大小在300KB以上。如未按时提交，将自动延期下一批制作。谢谢！提交邮箱地址：qiaohui@iboxpay.com
 
 注意格式问题
 

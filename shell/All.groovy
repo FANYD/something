@@ -80,10 +80,10 @@ FILES.chooseDirectoryAndSave("Choose directory", "Choose where to store generate
 }
 
 def generate(table, dir) {
-    def dirName = dir.toString().substring(dir.toString().indexOf("java") + 5).replace("\\", ".") + ";"
+    def dirName = dir.toString().substring(dir.toString().indexOf("java") + 5).replace("/", ".") + ";"
     def dirNameCriteria = dirName.replace("entity", "criteria")
     def dirNameVo = dirName.replace("entity", "vo")
-    def dirNameVoConverter = dirName.replace("entity", "vo").replace("facade", "provider").replace("facade", "provider")
+    def dirNameVoConverter = dirName.replace("entity", "vo").replace("facade", "provider").replace("facade", "provider").replace(";", "")
     def dirNameDao = dirName.replace("entity", "dao").replace("facade", "provider").replace("facade", "provider").replace(";", "")
     def className = javaClassName(table.getName(), true)
     def fieldsEntity = calcFieldsEntity(table)
@@ -186,6 +186,8 @@ def generateCriteria(dirNameCriteria, out, className, fieldsCriteria) {
     out.println copyRight
     out.println ""
     out.println "package $dirNameCriteria"
+    out.println ""
+    out.println "import com.nuhtech.medchat.facade.core.criteria.AbstractCriteria;"
     out.println ""
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
@@ -293,10 +295,16 @@ def generateVo(dirNameVo, out, className, fieldsVo) {
 }
 
 def generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) {
+    def entityImport = "import " + dirNameVoConverter.replace("vo", "entity").replace("provider", "facade").replace("provider", "facade") + ".$className;"
+    def voImport = "import " + dirNameVoConverter.replace("provider", "facade").replace("provider", "facade") + ".$className" + "Vo;"
     out.println copyRight
     out.println ""
-    out.println "package $dirNameVoConverter"
+    out.println "package $dirNameVoConverter;"
     out.println ""
+    out.println "import com.nuhtech.medchat.facade.core.vo.VoConfig;"
+    out.println "import com.nuhtech.medchat.facade.core.vo.VoConverter;"
+    out.println entityImport
+    out.println voImport
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
     out.println " */"
@@ -312,9 +320,13 @@ def generateVoConverter(dirNameVoConverter, out, className, fieldsVoConverter) {
 }
 
 def generateInterface(dirNameDao, out, className, fieldsInterface) {
+    def entityImport = "import " + dirNameDao.replace("dao", "entity").replace("provider", "facade").replace("provider", "facade") + ".$className;"
     out.println copyRight
     out.println ""
     out.println "package $dirNameDao;"
+    out.println ""
+    out.println entityImport
+    out.println "import com.nuhtech.medchat.provider.core.dao.IGenericDao;"
     out.println ""
     out.println "/**"
     out.println " * Created by FanYD on " + new SimpleDateFormat("yyyy/MM/dd.").format(new Date())
@@ -326,9 +338,13 @@ def generateInterface(dirNameDao, out, className, fieldsInterface) {
 def generateXml(dirNameDao, table, out, className, fieldsXml) {
     //maxLength
     def maxLength = 0;
+    def isHis = false;
     fieldsXml.each() {
         if (it.sqlName.length() > maxLength) {
             maxLength = it.sqlName.length()
+        }
+        if (it.name == ("importDatetime")) {
+            isHis = true;
         }
     }
     maxLength = maxLength + 4
@@ -403,10 +419,19 @@ def generateXml(dirNameDao, table, out, className, fieldsXml) {
     out.println "        ) values ("
     fieldsXml.each() {
         if (it.sqlName != fieldsXml[0].sqlName) {
-            if (it.name != ("createDatetime") && it.name != ("updateDatetime")) {
-                out.print "        #{${it.name}}"
-            } else {
-                out.print "        current_timestamp"
+            if (isHis == false) {
+                if (it.name != ("createDatetime") && it.name != ("updateDatetime")) {
+                    out.print "        #{${it.name}}"
+                } else {
+                    out.print "        current_timestamp"
+                }
+            }
+            if (isHis == true) {
+                if (it.name != ("importDatetime")) {
+                    out.print "        #{${it.name}}"
+                } else {
+                    out.print "        current_timestamp"
+                }
             }
             if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName) {
                 out.println ","
@@ -418,41 +443,37 @@ def generateXml(dirNameDao, table, out, className, fieldsXml) {
     out.println "    </insert>"
 
     //update
-    out.println ""
-    out.println "    <update id=\"update\" parameterType=\"$className\">"
-    out.println "        update " + table.getName()
-    out.println "        set"
-    fieldsXml.each() {
-        if (it.sqlName != fieldsXml[0].sqlName) {
-            if (it.name != ("updateDatetime")) {
-                if (it.name != ("createDatetime")) {
+    if (isHis == false) {
+        out.println ""
+        out.println "    <update id=\"update\" parameterType=\"$className\">"
+        out.println "        update " + table.getName()
+        out.println "        set"
+        fieldsXml.each() {
+            if (it.sqlName != fieldsXml[0].sqlName) {
+                if (it.name != ("updateDatetime")) {
+                    if (it.name != ("createDatetime")) {
+                        out.print "        ${it.sqlName}"
+                        for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
+                            out.print " "
+                        }
+                        out.print "= #{${it.name}}"
+                    }
+                } else {
                     out.print "        ${it.sqlName}"
                     for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
                         out.print " "
                     }
-                    out.print "= #{${it.name}}"
+                    out.print "= current_timestamp"
                 }
-            } else {
-                out.print "        ${it.sqlName}"
-                for (int i = 0; i < maxLength - it.sqlName.length(); i++) {
-                    out.print " "
-                }
-                out.print "= current_timestamp"
-            }
-            if (fieldsXml[fieldsXml.size() - 1].sqlName == "create_datetime") {
                 if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName && it.sqlName != fieldsXml[fieldsXml.size() - 2].sqlName) {
-                    out.println ","
-                }
-            } else {
-                if (it.sqlName != fieldsXml[fieldsXml.size() - 1].sqlName) {
                     out.println ","
                 }
             }
         }
+        out.println ""
+        out.println "        where " + fieldsXml[0].sqlName + " = #{" + fieldsXml[0].name + "}"
+        out.println "    </update>"
     }
-    out.println ""
-    out.println "        where " + fieldsXml[0].sqlName + " = #{" + fieldsXml[0].name + "}"
-    out.println "    </update>"
 
     //delete
     out.println ""

@@ -1,0 +1,16 @@
+//查看是否锁表
+show open tables where in_use > 0;
+//查询数据库当前的进程
+show processlist; 
+select * from information_schema.`PROCESSLIST`where info is not null;
+//查看当前运行的所有事务
+select * from information_schema.innodb_trx;
+//查看当前出现的锁
+select * from information_schema.innodb_locks;
+//查看锁等待的对应关系
+select * from information_schema.innodb_lock_waits;
+//查看锁等待的表
+select p.id, p.time, i.trx_id, i.trx_state, p.info from information_schema.processlist p, information_schema.innodb_trx i where p.id = i.trx_mysql_thread_id and i.trx_state = 'lock wait';
+//kill掉锁表语句
+kill id
+

@@ -1,0 +1,2 @@
+//将远程 URL 从 HTTPS 切换到 SSH
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
